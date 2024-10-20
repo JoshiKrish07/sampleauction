@@ -13,7 +13,7 @@ const AdminMaterialList = () => {
     const { data, loading, error } = useSelector((state) => state.tablesData.allmaterials);
 
     useEffect(() => {
-        //call if allusers is empty
+        //call if allMaterial is empty
         if (data.length === 0) {
             dispatch(fetchAllMaterials());
         }

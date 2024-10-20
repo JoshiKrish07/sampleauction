@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 
-export const verifyToken = (token) => {
+export const verifyAdmin = (token) => {
   try {
-    const decoded = jwt.verify(token, process.env.JWT_LOGIN_KEY);
-    console.log("=====decoded====>", decoded);
+    const decoded = jwt.verify(token, process.env.JWT_LOGIN_ADMIN_KEY);
+    console.log("=====decoded==admin==>", decoded);
     return decoded;
   } catch (error) {
     // if token is expired
@@ -13,3 +13,4 @@ export const verifyToken = (token) => {
     throw new Error("Invalid token");
   }
 };
+

@@ -21,7 +21,6 @@ import Home1UpcomingAuction from "@/components/upcoming-auction/Home1UpcomingAuc
 export const metadata = {
   title: "Bhargava Auctions",
   icons: {
-    // icon: "/assets/img/fav-icon.svg",
     icon: "/assets/img/bh-auction-logo.jpeg",
   },
 };

@@ -3,8 +3,9 @@ import jwt from "jsonwebtoken";
 import multer from "multer";
 import fs from "fs";
 import path from "path";
-import bcrypt from "bcrypt";
 import cors from "@/lib/cors";
+import bcrypt from "bcrypt";
+
 const config = {
   api: {
     bodyParser: false,    // disable next js body parsing
@@ -67,19 +68,16 @@ export async function POST(req) {
     const profilePic = formData.get("profilePic");
 
     let imagePath = null;
-    
-    // Check if the user already exists
    
     if (profilePic && typeof profilePic === "object" && profilePic.name) {
 
       const imageFileName = `${Date.now()}-${profilePic.name}`; // To ensure unique names
       imagePath = path.join(uploadsDir, imageFileName);
     
-      // Write the file to the server's public/profileImage folder
       const buffer = await profilePic.arrayBuffer();
       await fs.promises.writeFile(imagePath, Buffer.from(buffer));
     
-      // Save only the relative path to the image (for example: /profileImage/filename.jpg)
+      // Save only the relative path to the image 
       imagePath = `/profileImage/${imageFileName}`;
     }
 
@@ -109,7 +107,7 @@ export async function POST(req) {
       address,
       state,
       pincode,
-      imagePath || "default-image-path",
+      imagePath || "",
       handlename,
     ];
 

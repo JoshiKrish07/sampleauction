@@ -12,7 +12,7 @@ const AdminLotsList = () => {
     const { data, loading, error } = useSelector((state) => state.tablesData.alllots);
 
     useEffect(() => {
-        //call if allusers is empty
+        //call if allLots is empty
         if (data.length === 0) {
             dispatch(fetchAllLots());
         }
