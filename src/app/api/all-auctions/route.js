@@ -1,12 +1,9 @@
 import db from "@/utils/db";
 import { NextResponse } from "next/server";
 
-console.log("====host===>", db)
-
 export async function GET(req) {
     try {
         const [rows] = await db.execute("SELECT * FROM auction_detail");
-        console.log("=====rows=====>", rows);
 
         if (rows.length === 0) {
             return NextResponse.json({ message: "auctions not found" }, { status: 404 });

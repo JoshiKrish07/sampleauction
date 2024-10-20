@@ -34,14 +34,13 @@ export default function RootLayout({ children }) {
         <head>
         <link
           rel="icon"
-          // href="/assets/img/fav-icon.svg"
           href="/assets/img/bh-auction-logo.jpeg"
           type="image/x-icon"
           sizes="16x16"
         />
            <meta name="description" content="Your description here" />
            <meta name="keywords" content="next.js, SEO, meta tags" />
-        <title>Bhargava Auctions</title>
+        {/* <title>Bhargava Auctions</title> */}
       </head>
       <body>
         <ReduxProvider>{children} <ScrollTopBtn /> </ReduxProvider><ToastContainer />

@@ -1,8 +1,5 @@
 import mysql from "mysql2/promise";
 
-console.log("====>Environment=====>", process.env.NODE_ENV);
-
-
 const db = mysql.createPool({
   host:
     process.env.NODE_ENV === "development"

@@ -5,6 +5,8 @@ import AdminSideBar from "../admindashboard/AdminSideBar";
 import { fetchAllAuctions } from "@/store/slices/allDataSlice";
 import { useEffect } from "react";
 import Loader from "@/components/loader/Loader";
+import './AdminAuctionList.css';
+import Link from "next/link";
 
 const AdminAuctionList = () => {
 
@@ -12,7 +14,7 @@ const AdminAuctionList = () => {
     const { data, loading, error } = useSelector((state) => state.tablesData.allauctions);
 
     useEffect(() => {
-        //call if allusers is empty
+        //call if allAuctions is empty
         if (data.length === 0) {
             dispatch(fetchAllAuctions());
         }
@@ -38,7 +40,12 @@ const AdminAuctionList = () => {
                 </div>
               </div>
               <div className="bidding-summary-wrap">
+                <div className="auct-header">
                 <h6>Auctions List</h6>
+                <Link href='/admin/add_auction'>
+                  <button>Add Auction</button>
+                </Link>
+                </div>
                 <table className="bidding-summary-table">
                   <thead>
                     <tr>

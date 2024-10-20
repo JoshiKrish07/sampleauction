@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 export async function GET(req) {
     try {
         const [rows] = await db.execute("SELECT * FROM material");
-        console.log("=====rows=====>", rows);
 
         if (rows.length === 0) {
             return NextResponse.json({ message: "materials not found" }, { status: 404 });

@@ -12,7 +12,7 @@ const AdminCategoryList = () => {
     const { data, loading, error } = useSelector((state) => state.tablesData.allcategories);
 
     useEffect(() => {
-        //call if allusers is empty
+        //call if allCategories is empty
         if (data.length === 0) {
             dispatch(fetchAllCategories());
         }

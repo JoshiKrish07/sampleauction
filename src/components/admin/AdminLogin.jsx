@@ -73,7 +73,8 @@ const AdminLogin = () => {
             method: 'POST',
             body: formDataToSend
           });
-    
+          const data = await res.json();
+          console.log("===data===>", data);
           if(res.status === 401) {
             toast.error("Invalid handlename or password", {position: "top-right"})
             setLoading(false);
@@ -82,6 +83,7 @@ const AdminLogin = () => {
             toast.error("Internal Server Error", {position: "top-right"});
           } else {
             toast.success("Logged in successfully", {position: 'top-right'});
+            localStorage.setItem('token', data.token)
             router.push('/admin/dashboard');
           }
 
