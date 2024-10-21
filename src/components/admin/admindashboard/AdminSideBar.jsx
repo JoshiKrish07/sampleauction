@@ -1,13 +1,21 @@
 'use client'
 import React from "react";
 import Link from "next/link";
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { logout } from "@/store/slices/authSlices";
+import { useDispatch } from "react-redux";
 
 const AdminSideBar = () => {
-
+    const router = useRouter();
     const pathname = usePathname();
+    const dispatch = useDispatch();
   // Function to check if the current route matches the given path
   const isActive = (path) => pathname === path;
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push('/admin');
+  }
 
   return (
     <>
@@ -102,8 +110,8 @@ const AdminSideBar = () => {
               <h6>Lots</h6>
             </Link>
           </li>
-          <li>
-            <a href="#">
+          <li style={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+            <button style={{width:'200px'}}>
               <svg
                 width={18}
                 height={18}
@@ -116,8 +124,8 @@ const AdminSideBar = () => {
                   <path d="M11.625 6C11.5255 6 11.4302 5.96049 11.3598 5.89016C11.2895 5.81984 11.25 5.72446 11.25 5.625V1.875C11.25 1.25475 10.7453 0.75 10.125 0.75H1.5C1.40054 0.75 1.30516 0.710491 1.23483 0.640165C1.16451 0.569839 1.125 0.474456 1.125 0.375C1.125 0.275544 1.16451 0.180161 1.23483 0.109835C1.30516 0.0395088 1.40054 0 1.5 0L10.125 0C11.1593 0 12 0.8415 12 1.875V5.625C12 5.72446 11.9605 5.81984 11.8902 5.89016C11.8198 5.96049 11.7245 6 11.625 6ZM14.625 11.25C14.5509 11.25 14.4784 11.228 14.4168 11.1868C14.3552 11.1457 14.3071 11.0872 14.2787 11.0187C14.2503 10.9503 14.2428 10.875 14.2572 10.8023C14.2716 10.7295 14.3072 10.6627 14.3595 10.6103L17.094 7.87575L14.3595 5.14125C14.2912 5.07052 14.2534 4.9758 14.2542 4.87747C14.2551 4.77915 14.2945 4.6851 14.3641 4.61557C14.4336 4.54604 14.5277 4.5066 14.626 4.50575C14.7243 4.50489 14.819 4.54269 14.8898 4.611L17.8898 7.611C17.9601 7.68132 17.9995 7.77669 17.9995 7.87613C17.9995 7.97556 17.9601 8.07093 17.8898 8.14125L14.8898 11.1412C14.8193 11.211 14.7241 11.2501 14.625 11.25Z" />
                 </g>
               </svg>
-              <h6>Logout</h6>
-            </a>
+              <h6 onClick={handleLogout}>Logout</h6>
+            </button>
           </li>
         </ul>
       </div>

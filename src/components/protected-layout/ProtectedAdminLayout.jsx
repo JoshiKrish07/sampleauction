@@ -1,11 +1,11 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Loader from '../loader/Loader';
 
-const ProtectedLayout = ({ children }) => {
+const ProtectAdminLayout = ({ children }) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [isValidToken, setIsValidToken] = useState(false);
@@ -15,31 +15,31 @@ const ProtectedLayout = ({ children }) => {
     const checkTokenValidity = async () => {
       if (!token) {
         setIsLoading(false); // Set loading to false if no token
-        router.push('/login');
+        router.push('/admin');
         return;
       }
 
       try {
-        const response = await fetch('/api/verify-token', {
+        const response = await fetch('/api/verify-admin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ token }),
         });
-        console.log("===response===>", response);
+
         if (response.ok) {
           const data = await response.json();
           setIsValidToken(data.valid);
         } else {
           localStorage.removeItem('token');
           localStorage.removeItem('handlename');
-          router.push('/login');
+          router.push('/admin');
           throw new Error('Invalid token');
         }
       } catch (error) {
         console.error("error in protected route",error);
-        router.push('/login');
+        router.push('/admin');
       } finally {
         setIsLoading(false);
       }
@@ -59,4 +59,4 @@ const ProtectedLayout = ({ children }) => {
   return <>{children}</>;
 };
 
-export default ProtectedLayout;
+export default ProtectAdminLayout;

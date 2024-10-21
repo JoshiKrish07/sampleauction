@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 import cors from "@/lib/cors";
 import bcrypt from "bcrypt";
+import db from "@/utils/db";
 
 const config = {
   api: {
@@ -18,28 +19,28 @@ const config = {
 
 // Create the uploads directory path
 const uploadsDir = path.join(process.cwd(), "public/profileImage");
-console.log("====>uploadsDir===>", uploadsDir);
+
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
 
 // Create a MySQL connection pool
-const pool = mysql.createPool({
-  host:
-    process.env.NODE_ENV === "development"
-      ? process.env.DEV_HOST
-      : process.env.PROD_HOST,
-  user:
-    process.env.NODE_ENV === "development"
-      ? process.env.DEV_USER
-      : process.env.PROD_USER,
-  password:
-    process.env.NODE_ENV === "development" ? "" : process.env.PROD_PASSWORD,
-  database:
-    process.env.NODE_ENV === "development"
-      ? process.env.DEV_DB_NAME
-      : process.env.PROD_DB_NAME,
-});
+// const pool = mysql.createPool({
+//   host:
+//     process.env.NODE_ENV === "development"
+//       ? process.env.DEV_HOST
+//       : process.env.PROD_HOST,
+//   user:
+//     process.env.NODE_ENV === "development"
+//       ? process.env.DEV_USER
+//       : process.env.PROD_USER,
+//   password:
+//     process.env.NODE_ENV === "development" ? "" : process.env.PROD_PASSWORD,
+//   database:
+//     process.env.NODE_ENV === "development"
+//       ? process.env.DEV_DB_NAME
+//       : process.env.PROD_DB_NAME,
+// });
 
 // POST API route
 export async function POST(req) {
@@ -82,7 +83,7 @@ export async function POST(req) {
     }
 
 
-    const [existingUser] = await pool.execute(
+    const [existingUser] = await db.execute(
       "SELECT * FROM register WHERE email = ? OR handlename = ?",
       [email, handlename]
     );
@@ -111,7 +112,7 @@ export async function POST(req) {
       handlename,
     ];
 
-    const [result] = await pool.execute(
+    const [result] = await db.execute(
       "INSERT INTO register (name, email, password, mobile, address, state, pincode, profileimage, handlename) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       valuesToInsert
     );
