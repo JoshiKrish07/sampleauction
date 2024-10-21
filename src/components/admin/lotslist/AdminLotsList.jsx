@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import Loader from "@/components/loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllLots } from "@/store/slices/allDataSlice";
+import Link from "next/link";
+import './AdminLotsList.css';
 
 const AdminLotsList = () => {
 
@@ -25,19 +27,13 @@ const AdminLotsList = () => {
           <div className="dashboard-wrapper">
             <AdminSideBar />
             <div className="dashboard-content-wrap">
-              <div className="profile-info-wrap">
-                {/* <div className="profile-img">
-                  <img
-                    src="/assets/img/inner-pages/dashboard-profile-img.png"
-                    alt=""
-                  />
-                </div> */}
-                <div className="profile-content">
-                  <h4>Hi, Admin</h4>
-                </div>
-              </div>
               <div className="bidding-summary-wrap">
+              <div className="auct-header">
                 <h6>Lots List</h6>
+                <Link href='/admin/add_lots'>
+                  <button>Add Lot</button>
+                </Link>
+                </div>
                 <table className="bidding-summary-table">
                   <thead>
                     <tr>

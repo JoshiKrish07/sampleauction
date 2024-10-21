@@ -140,7 +140,7 @@ const HowTobuy = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="video-tutorial-area">
+                    {/* <div className="video-tutorial-area">
                         <h2>Guidelines For Biding</h2>
                         <div className="video-wrapper">
                             <img
@@ -189,7 +189,7 @@ const HowTobuy = () => {
                             </a>
                         </div>
 
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <React.Fragment>

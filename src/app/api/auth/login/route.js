@@ -2,14 +2,15 @@ import mysql from "mysql2/promise";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import cors from "@/lib/cors";
+import db from "@/utils/db";
 
 // Create a MySQL connection pool (reuse the same pool configuration as in registration logic)
-const pool = mysql.createPool({
-  host: process.env.NODE_ENV === 'development' ? process.env.DEV_HOST : process.env.PROD_HOST,
-  user: process.env.NODE_ENV === 'development' ? process.env.DEV_USER : process.env.PROD_USER,
-  password: process.env.NODE_ENV === 'development' ? "" : process.env.PROD_PASSWORD,
-  database: process.env.NODE_ENV === 'development' ? process.env.DEV_DB_NAME : process.env.PROD_DB_NAME,
-});
+// const pool = mysql.createPool({
+//   host: process.env.NODE_ENV === 'development' ? process.env.DEV_HOST : process.env.PROD_HOST,
+//   user: process.env.NODE_ENV === 'development' ? process.env.DEV_USER : process.env.PROD_USER,
+//   password: process.env.NODE_ENV === 'development' ? "" : process.env.PROD_PASSWORD,
+//   database: process.env.NODE_ENV === 'development' ? process.env.DEV_DB_NAME : process.env.PROD_DB_NAME,
+// });
 
 // Token generation function
 const generateToken = (user) => {
@@ -36,7 +37,7 @@ export async function POST(req) {
       const handlename = formData.get("handlename");
       const password = formData.get("password");
       // Check if the user exists in the database
-      const [user] = await pool.execute(
+      const [user] = await db.execute(
         "SELECT * FROM register WHERE handlename = ?",
         [handlename]
       );

@@ -45,20 +45,27 @@ const MultiparposeAuctionGrid = () => {
       .scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  // useEffect(() => {
+  //   // if (!haslotData) {
+  //   //   dispatch(fetchLiveAuction());
+  //   // }
+
+  //   // Set up polling to dispatch fetchLiveAuction every 5 seconds
+  //   const intervalId = setInterval(() => {
+  //     dispatch(fetchLiveAuction());
+  //   }, 5000); // Poll every 5 seconds
+
+  //   // Clean up the interval on component unmount
+  //   return () => clearInterval(intervalId);
+
+  // }, [dispatch]);
+
   useEffect(() => {
-    // if (!haslotData) {
-    //   dispatch(fetchLiveAuction());
-    // }
-
-    // Set up polling to dispatch fetchLiveAuction every 5 seconds
-    const intervalId = setInterval(() => {
+    if (!haslotData) {
       dispatch(fetchLiveAuction());
-    }, 5000); // Poll every 5 seconds
+    }
+  }, [dispatch, haslotData]);
 
-    // Clean up the interval on component unmount
-    return () => clearInterval(intervalId);
-
-  }, [dispatch]);
 
   const handleColumnClick = (columnNumber) => {
     setActiveColumn(columnNumber);

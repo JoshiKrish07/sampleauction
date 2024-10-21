@@ -71,7 +71,11 @@ const AddAuction = () => {
 
   // running on onchange of input fields
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
+    let { name, value, files } = e.target;
+    if(name === 'auct_code') {
+      value = value.toUpperCase();
+      console.log("value", value);
+    }
     setFormData((prevState) => ({
       ...prevState,
       [name]: files ? files[0] : value,
@@ -186,6 +190,7 @@ const AddAuction = () => {
                         name="auct_code"
                         value={formData.auct_code}
                         onChange={handleChange}
+                        style={{textTransform:'uppercase'}}
                       />
                       {errors.auct_code && (
                         <p className="error">{errors.auct_code}</p>

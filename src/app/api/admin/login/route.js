@@ -67,7 +67,7 @@ export async function POST(req) {
           )
         );
       } catch (error) {
-        console.error("Error in login logic:", error);
+        console.error("Error in admin login logic:", error);
         return resolve(
           new Response(JSON.stringify({ error: "Login failed" }), {
             status: 500,

@@ -14,13 +14,13 @@ if (!fs.existsSync(uploadsDir)) {
 
 export async function POST(req) {
 
-    // Handle CORS
-    const corsHeaders = cors(req);
+    // // Handle CORS
+    // const corsHeaders = cors(req);
 
-    // If it's an OPTIONS request, return early
-    if (req.method === 'OPTIONS') {
-        return new Response(null, { status: 204, headers: corsHeaders });
-    }
+    // // If it's an OPTIONS request, return early
+    // if (req.method === 'OPTIONS') {
+    //     return new Response(null, { status: 204, headers: corsHeaders });
+    // }
 
     try {
         const formData = await req.formData();
@@ -50,35 +50,33 @@ export async function POST(req) {
         // Extract file
         const auct_image = formData.get("auct_image");
 
-        let imagePath = null;
-    
-        if (auct_image && typeof auct_image === "object" && auct_image.name) {
-
-        const imageFileName = `${Date.now()}-${auct_image.name}`; // To ensure unique names
-        imagePath = path.join(uploadsDir, imageFileName);
-
-        const buffer = await auct_image.arrayBuffer();
-        await fs.promises.writeFile(imagePath, Buffer.from(buffer));
-        
-        // Save only the relative path to the image
-        imagePath = `/auction_image/${imageFileName}`;
-        }
-
         // if auction already added
         const [existingAuction] = await db.execute(
-            "SELECT * FROM auction_detail WHERE auct_code = ?",
-            [auct_code]
-          );
+          "SELECT * FROM auction_detail WHERE auct_code = ?",
+          [auct_code]
+        );
 
-          if (existingAuction.length > 0) {
+        if (existingAuction.length > 0) {
+          return NextResponse.json({ message: "Auction with this code already added"}, {status: 409});
+        }
+    
+        let imagePath = null;
 
-            return NextResponse.json({ message: "Auction with this code already added"}, {status: 409});
+        if (auct_image && typeof auct_image === "object" && auct_image.name) {
 
-          }
+            const imageFileName = `${Date.now()}-${auct_image.name}`; // To ensure unique names
+            imagePath = path.join(uploadsDir, imageFileName);
+
+            const buffer = await auct_image.arrayBuffer();
+            await fs.promises.writeFile(imagePath, Buffer.from(buffer));
+            
+            // Save only the relative path to the image
+            imagePath = `/auction_image/${imageFileName}`;
+        }
 
           const valuesToInsert = [
             auct_code,
-            auction_name,
+            auction_name.toUpperCase(),
             auct_detail,
             auct_location,
             auct_status,

@@ -80,7 +80,7 @@ const Home1LiveAuction = () => {
   useEffect(() => {
     dispatch(fetchLiveAuction());
 
-    // Set up polling to dispatch fetchLiveAuction every 5 seconds
+    // // Set up polling to dispatch fetchLiveAuction every 5 seconds
     const intervalId = setInterval(() => {
       dispatch(fetchLiveAuction());
     }, 5000); // Poll every 5 seconds
